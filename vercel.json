@@ -1,0 +1,18 @@
+{
+  "functions": {
+    "api/**/*": {
+      "includeFiles": "files/**/*"
+    }
+  },
+  "rewrites": [
+    { "source": "/materials", "destination": "/api/materials" },
+    {
+      "source": "/materials/material",
+      "destination": "/api/materials/material"
+    },
+    {
+      "source": "/materials/paths",
+      "destination": "/api/materials/paths"
+    }
+  ]
+}

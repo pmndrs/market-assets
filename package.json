@@ -1,0 +1,15 @@
+{
+  "name": "market-api",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "scripts": {
+    "start": "vercel dev",
+    "prettier": "prettier --list-different '**/*.{js,jsx,md}'"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^2.2.1"
+  }
+}
