@@ -12,7 +12,22 @@
         { "key": "Access-Control-Allow-Origin", "value": "*" },
         {
           "key": "Access-Control-Allow-Methods",
-          "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT"
+          "value": "GET"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+        }
+      ]
+    },
+    {
+      "source": "/models/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Credentials", "value": "true" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET"
         },
         {
           "key": "Access-Control-Allow-Headers",
@@ -30,6 +45,15 @@
     {
       "source": "/materials/paths",
       "destination": "/api/materials/paths"
+    },
+    { "source": "/models", "destination": "/api/models" },
+    {
+      "source": "/models/material",
+      "destination": "/api/models/material"
+    },
+    {
+      "source": "/models/paths",
+      "destination": "/api/models/paths"
     }
   ]
 }
