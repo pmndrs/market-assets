@@ -2,7 +2,7 @@ import path from 'path'
 import fs from 'fs'
 import { getSize } from '../getSize'
 
-const getAllModels = () => {
+export const getAllModels = () => {
   const resources = path.join(__dirname, '../../files/models/')
   const folders = fs.readdirSync(resources)
   // eslint-disable-next-line array-callback-return

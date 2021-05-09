@@ -3,7 +3,7 @@ import { getSize } from '../getSize'
 const fs = require('fs')
 const path = require('path')
 
-const getAllMatcaps = () => {
+export const getAllMaterials = () => {
   const resources = path.join(__dirname, '../../files/materials/')
   const folders = fs.readdirSync(resources)
   // eslint-disable-next-line array-callback-return
@@ -55,7 +55,7 @@ const getAllMatcaps = () => {
 }
 
 export default function handler(req, res) {
-  const materials = getAllMatcaps()
+  const materials = getAllMaterials()
 
   res.status(200).json(materials)
 }

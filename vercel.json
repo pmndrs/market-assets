@@ -46,6 +46,10 @@
       "source": "/materials/paths",
       "destination": "/api/materials/paths"
     },
+    {
+      "source": "/materials/categories",
+      "destination": "/api/materials/categories"
+    },
     { "source": "/models", "destination": "/api/models" },
     {
       "source": "/models/model",
@@ -54,6 +58,10 @@
     {
       "source": "/models/paths",
       "destination": "/api/models/paths"
+    },
+    {
+      "source": "/models/categories",
+      "destination": "/api/models/categories"
     }
   ]
 }
