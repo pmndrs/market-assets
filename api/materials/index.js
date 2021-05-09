@@ -1,7 +1,6 @@
 import { getSize } from '../getSize'
-
-const fs = require('fs')
-const path = require('path')
+import path from 'path'
+import fs from 'fs'
 
 export const getAllMaterials = () => {
   const resources = path.join(__dirname, '../../files/materials/')
