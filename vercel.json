@@ -48,8 +48,8 @@
     },
     { "source": "/models", "destination": "/api/models" },
     {
-      "source": "/models/material",
-      "destination": "/api/models/material"
+      "source": "/models/model",
+      "destination": "/api/models/model"
     },
     {
       "source": "/models/paths",
