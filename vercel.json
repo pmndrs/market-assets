@@ -50,6 +50,19 @@
       "source": "/materials/categories",
       "destination": "/api/materials/categories"
     },
+    { "source": "/hdri", "destination": "/api/hdri" },
+    {
+      "source": "/hdri/hdri",
+      "destination": "/api/hdri/hdri"
+    },
+    {
+      "source": "/hdri/paths",
+      "destination": "/api/hdri/paths"
+    },
+    {
+      "source": "/hdri/categories",
+      "destination": "/api/hdri/categories"
+    },
     { "source": "/models", "destination": "/api/models" },
     {
       "source": "/models/model",
