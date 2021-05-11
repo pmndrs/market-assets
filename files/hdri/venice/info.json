@@ -1,7 +1,9 @@
 {
   "name": "Venice Sunset",
-  "creator": "Greg Zaal",
-  "creatorLink": "https://hdrihaven.com/hdri/?h=venice_sunset",
+  "creator": {
+    "name": "Greg Zaall",
+    "link": "https://hdrihaven.com/hdri/?c=night&h=venice_sunset"
+  },
   "license": 1,
   "category": "outdoor"
 }

@@ -17,27 +17,32 @@ const getMaterial = (name) => {
       if (filename.includes('.json')) {
         const info = JSON.parse(fileContents)
 
-        if (info.links) {
+        if (info.maps) {
           info.sizes = {}
-          Object.values(info.links).map((link, i) => {
-            const mapLink = path.join(process.cwd(), `files${link}`)
+          info.maps = Object.keys(info.maps).reduce((acc, curr) => {
+            acc[curr] = `/files/materials/${name}/${info.maps[curr]}`
+
+            return acc
+          }, {})
+          Object.values(info.maps).map((link, i) => {
+            const mapLink = path.join(process.cwd(), link)
             const { size } = getSize(mapLink, true)
-            const name = Object.keys(info.links)[i]
+            const name = Object.keys(info.maps)[i]
             info.sizes[name] = size
-            info.links[name] = `/files${link}`
+            info.maps[name] = link
 
             return null
           })
         }
         material = {
           ...material,
-          info,
+          ...info,
         }
       }
       material.folder = name
 
       if (filename.includes('render.')) {
-        material.image = `/files/materials/${name}/${filename}`
+        material.thumbnail = `/files/materials/${name}/${filename}`
       } else {
         if (filename.includes('.jpg')) {
           const { size } = getSize(filePath)

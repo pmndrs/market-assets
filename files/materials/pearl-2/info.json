@@ -1,7 +1,9 @@
 {
   "name": "Pearl",
-  "creator": "Blender Community",
-  "creatorLink": "https://github.com/blender/blender/tree/master/release/datafiles/studiolights/matcap",
+  "creator": {
+    "name": "Blender Community",
+    "link": "https://github.com/blender/blender/tree/master/release/datafiles/studiolights/matcap"
+  },
   "license": 1,
   "category": "matcaps"
 }

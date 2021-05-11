@@ -3,7 +3,7 @@ import { getAllHdris } from './'
 const getAllCategories = () => {
   const models = getAllHdris()
   const categories = models.reduce((acc, curr) => {
-    const cat = curr.info.category
+    const cat = curr.category
     if (acc[cat]) {
       acc[cat].hdris.concat(acc)
     } else {

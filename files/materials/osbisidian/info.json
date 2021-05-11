@@ -1,7 +1,9 @@
 {
   "name": "Obsidian",
-  "creator": "silvermindyarr",
-  "creatorLink": "https://www.blendswap.com/blend/6610",
+  "creator": {
+    "name": "silvermindyarr",
+    "link": "https://www.blendswap.com/blend/6610"
+  },
   "license": 1,
   "category": "matcaps"
 }

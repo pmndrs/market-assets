@@ -20,8 +20,8 @@ export const getAllModels = () => {
           model.highPoly = highPoly
         }
         model.url = folder
-        if (filename.includes('.png') || filename.includes('.jpg')) {
-          model.image = `/files/models/${folder}/${filename}`
+        if (filename.includes('.png')) {
+          model.thumbnail = `/files/models/${folder}/${filename}`
         } else if (filename.includes('.json')) {
           model.info = JSON.parse(fileContents)
         }

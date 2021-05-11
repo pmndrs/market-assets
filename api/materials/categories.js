@@ -3,7 +3,7 @@ import { getAllMaterials } from './'
 const getAllCategories = () => {
   const materials = getAllMaterials()
   const categories = materials.reduce((acc, curr) => {
-    const cat = curr.info.category
+    const cat = curr.category
     if (acc[cat]) {
       acc[cat].materials.concat(acc)
     } else {

@@ -14,34 +14,38 @@ export const getAllMaterials = () => {
       fs.readdirSync(newPath).map((filename) => {
         const filePath = path.join(resources, folder, filename)
         const fileContents = fs.readFileSync(filePath, 'utf-8')
-        material.url = folder
-
+        material.id = 'material/' + folder
+        material.link = `https://api.market.pmnd.rs/materials/material?name=${folder}`
         if (filename.includes('.json')) {
           const info = JSON.parse(fileContents)
 
-          if (info.links) {
+          if (info.maps) {
+            info.maps = Object.keys(info.maps).reduce((acc, curr) => {
+              acc[curr] = `/files/materials/${folder}/${info.maps[curr]}`
+
+              return acc
+            }, {})
             info.sizes = {}
-            Object.values(info.links).map((link, i) => {
-              const mapLink = path.join(process.cwd(), `files${link}`)
+            Object.values(info.maps).map((link, i) => {
+              const mapLink = path.join(process.cwd(), link)
               const { size } = getSize(mapLink, true)
-              const name = Object.keys(info.links)[i]
+              const name = Object.keys(info.maps)[i]
               info.sizes[name] = size
               return null
             })
           }
           material = {
             ...material,
-            info,
+            ...info,
           }
         }
 
-        if (filename.includes('render.')) {
-          material.preview = `/files/materials/${folder}/${filename}`
-        } else {
-          if (filename.includes('.exr') || filename.includes('.jpg')) {
-            const { size } = getSize(filePath)
-            material.size = size
-          }
+        if (filename.includes('render.png')) {
+          material.thumbnail = `/files/materials/${folder}/${filename}`
+        }
+        if (filename.includes('.exr') || filename.includes('.jpg')) {
+          const { size } = getSize(filePath)
+          material.size = size
         }
       })
       return material
