@@ -5,11 +5,11 @@
   "license": 1,
   "category": "PBR",
   "links": {
-    "aoMap": "/files/materials/wood-floor-43/WoodFloor043_1K_AmbientOcclusion.jpg",
-    "map": "/files/materials/wood-floor-43/WoodFloor043_1K_Color.jpg",
-    "displacementMap": "/files/materials/wood-floor-43/WoodFloor043_1K_Displacement.jpg",
-    "metalnessMap": "/files/materials/wood-floor-43/WoodFloor043_1K_Metalness.jpg",
-    "normalMap": "/files/materials/wood-floor-43/WoodFloor043_1K_Normal.jpg",
-    "roughnessMap": "/files/materials/wood-floor-43/WoodFloor043_1K_Roughness.jpg"
+    "aoMap": "/materials/wood-floor-43/WoodFloor043_1K_AmbientOcclusion.jpg",
+    "map": "/materials/wood-floor-43/WoodFloor043_1K_Color.jpg",
+    "displacementMap": "/materials/wood-floor-43/WoodFloor043_1K_Displacement.jpg",
+    "metalnessMap": "/materials/wood-floor-43/WoodFloor043_1K_Metalness.jpg",
+    "normalMap": "/materials/wood-floor-43/WoodFloor043_1K_Normal.jpg",
+    "roughnessMap": "/materials/wood-floor-43/WoodFloor043_1K_Roughness.jpg"
   }
 }
