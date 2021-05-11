@@ -1,4 +1,4 @@
-import { getSize } from '../getSize'
+import { getSize } from '../../utils/getSize'
 import path from 'path'
 import fs from 'fs'
 

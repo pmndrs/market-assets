@@ -1,7 +1,7 @@
 import path from 'path'
 import fs from 'fs'
-import { getSize } from '../getSize'
-import { getNextAndPrev } from '../getNextAndPrev'
+import { getSize } from '../../utils/getSize'
+import { getNextAndPrev } from '../../utils/getNextAndPrev'
 
 const getHdri = (name) => {
   const resources = path.join(__dirname, '../../files/hdri/')

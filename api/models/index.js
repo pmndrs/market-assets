@@ -1,6 +1,6 @@
 import path from 'path'
 import fs from 'fs'
-import { getSize } from '../getSize'
+import { getSize } from '../../utils/getSize'
 
 export const getAllModels = () => {
   const resources = path.join(__dirname, '../../files/models/')
