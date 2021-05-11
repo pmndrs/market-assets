@@ -9,7 +9,7 @@ export const getAllHdriLinks = () => {
       const newPath = path.join(resources, folder)
       return fs.statSync(newPath).isDirectory()
     })
-    .map((a) => `/hdri/${a}`)
+    .map((a) => `/hdris/${a}`)
 
   return hdris
 }
