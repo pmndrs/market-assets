@@ -20,7 +20,7 @@ export const getAllModels = () => {
           model.size = size
           model.highPoly = highPoly
         }
-        model.link = `https://api.market.pmnd.rs/materials/material?name=${folder}`
+        model.link = `https://api.market.pmnd.rs/models/${folder}`
         model.id = `model/${folder}`
         if (filename === thumbnail) {
           model.thumbnail = `/files/models/${folder}/${filename}`

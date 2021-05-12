@@ -20,7 +20,7 @@ export const getAllHdris = () => {
           hdri.file = `/files/hdri/${folder}/${filename}`
         }
         hdri.id = `hdri/` + folder
-        hdri.link = `https://api.market.pmnd.rs/hdri/hdri?name=${folder}`
+        hdri.link = `https://api.market.pmnd.rs/hdri/${folder}`
         if (filename === 'render.png') {
           hdri.thumbnail = `/files/hdri/${folder}/${filename}`
         }

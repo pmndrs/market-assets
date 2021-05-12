@@ -15,7 +15,7 @@ export const getAllMaterials = () => {
         const filePath = path.join(resources, folder, filename)
         const fileContents = fs.readFileSync(filePath, 'utf-8')
         material.id = 'material/' + folder
-        material.link = `https://api.market.pmnd.rs/materials/material?name=${folder}`
+        material.link = `https://api.market.pmnd.rs/materials/${folder}`
         if (filename.includes('.json')) {
           const info = JSON.parse(fileContents)
 
