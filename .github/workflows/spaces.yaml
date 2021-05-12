@@ -1,0 +1,15 @@
+name: CDN Deployment
+on: push
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: nebula-dev/spaces-sync-action@master
+        env:
+          SOURCE_DIR: './files/'
+          SPACE_REGION: 'fra1'
+          SPACE_NAME: https://market.pmnd.rs.fra1.digitaloceanspaces.com
+          SPACE_ACCESS_KEY: ${{ secrets.SPACE_ACCESS_KEY }}
+          SPACE_SECRET_KEY: ${{ secrets.SPACE_SECRET_KEY }}
