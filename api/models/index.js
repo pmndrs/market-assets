@@ -1,6 +1,7 @@
 import path from 'path'
 import fs from 'fs'
 import { getSize } from '../../utils/getSize'
+import { thumbnail, model as modelName, info } from '../../utils/filenames'
 
 export const getAllModels = () => {
   const resources = path.join(__dirname, '../../files/models/')
@@ -14,16 +15,20 @@ export const getAllModels = () => {
       fs.readdirSync(newPath).map((filename) => {
         const filePath = path.join(resources, folder, filename)
         const fileContents = fs.readFileSync(filePath, 'utf-8')
-        if (filename.includes('.gltf')) {
+        if (filename === modelName) {
           const { size, highPoly } = getSize(filePath)
           model.size = size
           model.highPoly = highPoly
         }
-        model.url = folder
-        if (filename.includes('.png') || filename.includes('.jpg')) {
-          model.image = `/files/models/${folder}/${filename}`
-        } else if (filename.includes('.json')) {
-          model.info = JSON.parse(fileContents)
+        model.link = `https://api.market.pmnd.rs/materials/material?name=${folder}`
+        model.id = `model/${folder}`
+        if (filename === thumbnail) {
+          model.thumbnail = `/files/models/${folder}/${filename}`
+        } else if (filename === info) {
+          model = {
+            ...model,
+            ...JSON.parse(fileContents),
+          }
         }
       })
       return model

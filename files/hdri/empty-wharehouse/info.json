@@ -1,7 +1,9 @@
 {
   "name": "Empty Warehouse",
-  "creator": "Sergej Majboroda",
-  "creatorLink": "https://hdrihaven.com/hdri/?h=empty_warehouse_01",
+  "creator": {
+    "name": "Sergej Majboroda",
+    "link": "https://hdrihaven.com/hdri/?c=night&h=empty_warehouse_01"
+  },
   "license": 1,
   "category": "indoor"
 }

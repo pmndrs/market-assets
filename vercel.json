@@ -52,10 +52,11 @@
     }
   ],
   "rewrites": [
+    { "source": "/favorites", "destination": "/api/favorites" },
     { "source": "/materials", "destination": "/api/materials" },
     {
-      "source": "/materials/material",
-      "destination": "/api/materials/material"
+      "source": "/materials/:name",
+      "destination": "/api/materials/:name"
     },
     {
       "source": "/materials/paths",
@@ -67,8 +68,8 @@
     },
     { "source": "/hdri", "destination": "/api/hdri" },
     {
-      "source": "/hdri/hdri",
-      "destination": "/api/hdri/hdri"
+      "source": "/hdri/:name",
+      "destination": "/api/hdri/:name"
     },
     {
       "source": "/hdri/paths",
@@ -82,6 +83,14 @@
     {
       "source": "/models/model",
       "destination": "/api/models/model"
+    },
+    {
+      "source": "/models/:name",
+      "destination": "/api/models/:name"
+    },
+    {
+      "source": "/models/:name/buffer",
+      "destination": "/api/models/:name/buffer"
     },
     {
       "source": "/models/paths",

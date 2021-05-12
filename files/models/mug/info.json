@@ -1,8 +1,9 @@
 {
   "name": "Mug",
-  "creator": "Sara Vieira",
-  "creatorLink": "https://twitter.com/NikkitaFTW",
+  "creator": {
+    "name": "Sara Vieira",
+    "link": "https://twitter.com/NikkitaFTW"
+  },
   "license": 1,
   "category": "accessories"
 }
-

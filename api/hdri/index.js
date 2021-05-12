@@ -19,11 +19,14 @@ export const getAllHdris = () => {
           hdri.size = size
           hdri.file = `/files/hdri/${folder}/${filename}`
         }
-        hdri.url = folder
-        if (filename.includes('.png') || filename.includes('.jpg')) {
-          hdri.image = `/files/hdri/${folder}/${filename}`
-        } else if (filename.includes('.json')) {
-          hdri.info = JSON.parse(fileContents)
+        hdri.id = `hdri/` + folder
+        hdri.link = `https://api.market.pmnd.rs/hdri/hdri?name=${folder}`
+        if (filename === 'render.png') {
+          hdri.thumbnail = `/files/hdri/${folder}/${filename}`
+        }
+
+        if (filename === 'info.json') {
+          hdri = { ...hdri, ...JSON.parse(fileContents) }
         }
       })
       return hdri

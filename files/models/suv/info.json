@@ -1,7 +1,9 @@
 {
   "name": "SUV",
-  "creator": "Kenny",
-  "creatorLink": "https://www.kenney.nl/",
+  "creator": {
+    "name": "Kenny",
+    "link": "https://www.kenney.nl/"
+  },
   "license": 1,
   "category": "vehicles"
 }

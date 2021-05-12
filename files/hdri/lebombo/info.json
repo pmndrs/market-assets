@@ -1,7 +1,9 @@
 {
   "name": "Lebombo",
-  "creator": "Greg Zaal",
-  "creatorLink": "https://hdrihaven.com/hdri/?h=lebombo",
+  "creator": {
+    "name": "Greg Zaall",
+    "link": "https://hdrihaven.com/hdri/?c=night&h=lebombo"
+  },
   "license": 1,
   "category": "indoor"
 }

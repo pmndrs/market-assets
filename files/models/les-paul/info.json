@@ -1,7 +1,9 @@
 {
   "name": "Les Paul",
-  "creator": "simonrepp",
-  "creatorLink": "https://blendswap.com/blend/12223",
+  "creator": {
+    "name": "simonrepp",
+    "link": "https://blendswap.com/blend/12223"
+  },
   "license": 1,
   "category": "instruments"
 }

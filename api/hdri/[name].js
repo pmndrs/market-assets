@@ -22,9 +22,12 @@ const getHdri = (name) => {
       }
       hdri.url = name
       if (filename.includes('.png') || filename.includes('.jpg')) {
-        hdri.image = `/files/hdri/${name}/${filename}`
+        hdri.thumbnail = `/files/hdri/${name}/${filename}`
       } else if (filename.includes('.json')) {
-        hdri.info = JSON.parse(fileContents)
+        hdri = {
+          ...hdri,
+          ...JSON.parse(fileContents),
+        }
       }
     })
     return hdri

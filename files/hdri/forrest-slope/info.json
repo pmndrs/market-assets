@@ -1,7 +1,9 @@
 {
   "name": "Forrest Slope",
-  "creator": "Andreas Mischok",
-  "creatorLink": "https://hdrihaven.com/hdri/?h=forest_slope",
+  "creator": {
+    "name": "Andreas Mischok",
+    "link": "https://hdrihaven.com/hdri/?c=night&h=forest_slope"
+  },
   "license": 1,
   "category": "outdoor"
 }
