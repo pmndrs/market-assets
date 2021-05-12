@@ -1,7 +1,13 @@
 {
   "name": "Bed",
-  "creator": "Sara Vieira",
-  "creatorLink": "https://twitter.com/NikkitaFTW",
+  "creator": {
+    "name": "Sara Vieira",
+    "link": "https://twitter.com/NikkitaFTW"
+  },
+  "team": {
+    "name": "pmndrs",
+    "link": "http://pmnd.rs/"
+  },
   "license": 1,
   "category": "furniture"
 }

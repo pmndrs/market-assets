@@ -1,8 +1,9 @@
 {
   "name": "Bike",
-  "creator": "hugodutra",
-  "creatorLink": "https://blendswap.com/blend/27768",
+  "creator": {
+    "name": "hugodutra",
+    "link": "https://blendswap.com/blend/27768"
+  },
   "license": 1,
   "category": "vehicles"
 }
-
