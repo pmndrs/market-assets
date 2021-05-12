@@ -2,6 +2,7 @@ import path from 'path'
 import fs from 'fs'
 import { getSize } from '../../../utils/getSize'
 import { getNextAndPrev } from '../../../utils/getNextAndPrev'
+import { info, model as modelName, thumbnail } from '../../../utils/filenames'
 
 const getModel = (name) => {
   const resources = path.join(__dirname, '../../../files/models/')
@@ -15,24 +16,21 @@ const getModel = (name) => {
       const filePath = path.join(resources, name, filename)
       const fileContents = fs.readFileSync(filePath, 'utf-8')
 
-      if (filename.includes('.gltf')) {
+      model.url = name
+      if (filename === thumbnail) {
+        model.thumbnail = `/files/models/${name}/${filename}`
+      } else if (filename === info) {
+        model = {
+          ...model,
+          ...JSON.parse(fileContents),
+        }
+      }
+
+      if (filename === modelName) {
         const { size, highPoly } = getSize(filePath)
         model.size = size
         model.highPoly = highPoly
-      }
-      model.url = name
-      if (filename.includes('.png')) {
-        model.thumbnail = `/files/models/${name}/${filename}`
-      } else if (filename.includes('.json')) {
-        model.info = JSON.parse(fileContents)
-      }
-
-      if (filename.includes('.gltf')) {
-        if (filename.includes('_textures')) {
-          model.gltfTextured = `/files/models/${name}/${filename}`
-        } else {
-          model.gltf = `/files/models/${name}/${filename}`
-        }
+        model.gltf = `/files/models/${name}/${filename}`
       }
     })
     return model

@@ -9,7 +9,7 @@ const getDirectories = (source) =>
     .map((dirent) => dirent.name)
 
 const omitData = (data) => {
-  return omit(data, ['category', 'license', 'creator'])
+  return omit(data, ['category', 'license', 'creator', 'team'])
 }
 
 export const getNextAndPrev = (folder, name) => {

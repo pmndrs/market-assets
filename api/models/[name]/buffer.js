@@ -1,5 +1,6 @@
 import path from 'path'
 import fs from 'fs'
+import { model } from '../../../utils/filenames'
 
 const getBuffer = (name) => {
   const resources = path.join(__dirname, '../../../files/models/')
@@ -11,10 +12,8 @@ const getBuffer = (name) => {
       const filePath = path.join(resources, name, filename)
       const fileContents = fs.readFileSync(filePath, 'utf-8')
 
-      if (filename.includes('_textures')) {
+      if (filename === model) {
         buffer = fileContents
-      } else {
-        if (!buffer) buffer = fileContents
       }
     })
     return buffer
