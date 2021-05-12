@@ -10,6 +10,6 @@ jobs:
         env:
           SOURCE_DIR: './files/'
           SPACE_REGION: 'fra1'
-          SPACE_NAME: https://market.pmnd.rs.fra1.digitaloceanspaces.com
+          SPACE_NAME: market.pmnd.rs
           SPACE_ACCESS_KEY: ${{ secrets.SPACE_ACCESS_KEY }}
           SPACE_SECRET_KEY: ${{ secrets.SPACE_SECRET_KEY }}
