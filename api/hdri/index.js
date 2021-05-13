@@ -1,6 +1,7 @@
 import path from 'path'
 import fs from 'fs'
 import { getSize } from '../../utils/getSize'
+import { info, thumbnail, thumbnailJpg } from '../../utils/filenames'
 
 export const getAllHdris = () => {
   const resources = path.join(__dirname, '../../files/hdri/')
@@ -21,11 +22,11 @@ export const getAllHdris = () => {
         }
         hdri.id = `hdri/` + folder
         hdri.link = `https://api.market.pmnd.rs/hdri/${folder}`
-        if (filename === 'render.png') {
+        if (filename === thumbnail || filename === thumbnailJpg) {
           hdri.thumbnail = `/files/hdri/${folder}/${filename}`
         }
 
-        if (filename === 'info.json') {
+        if (filename === info) {
           hdri = { ...hdri, ...JSON.parse(fileContents) }
         }
       })

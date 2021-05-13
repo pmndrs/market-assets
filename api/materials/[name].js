@@ -2,6 +2,7 @@ import path from 'path'
 import fs from 'fs'
 import { getSize } from '../../utils/getSize'
 import { getNextAndPrev } from '../../utils/getNextAndPrev'
+import { thumbnail, thumbnailJpg } from '../../utils/filenames'
 
 const getMaterial = (name) => {
   const materialsFolder = path.join(__dirname, '../../files/materials/')
@@ -41,7 +42,7 @@ const getMaterial = (name) => {
       }
       material.folder = name
 
-      if (filename.includes('render.')) {
+      if (filename === thumbnail || filename === thumbnailJpg) {
         material.thumbnail = `/files/materials/${name}/${filename}`
       } else {
         if (filename.includes('.jpg')) {

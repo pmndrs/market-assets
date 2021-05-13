@@ -1,6 +1,7 @@
 import { getSize } from '../../utils/getSize'
 import path from 'path'
 import fs from 'fs'
+import { thumbnail, thumbnailJpg } from '../../utils/filenames'
 
 export const getAllMaterials = () => {
   const resources = path.join(__dirname, '../../files/materials/')
@@ -40,7 +41,7 @@ export const getAllMaterials = () => {
           }
         }
 
-        if (filename.includes('render.png')) {
+        if (filename === thumbnail || filename === thumbnailJpg) {
           material.thumbnail = `/files/materials/${folder}/${filename}`
         }
         if (filename.includes('.exr') || filename.includes('.jpg')) {

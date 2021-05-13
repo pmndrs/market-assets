@@ -1,6 +1,7 @@
 import fs from 'fs'
 import omit from 'lodash.omit'
 import path from 'path'
+import { info } from './filenames'
 
 const getDirectories = (source) =>
   fs
@@ -21,7 +22,7 @@ export const getNextAndPrev = (folder, name) => {
   ]
   let data = {}
   if (currentIndex < allDirs.length - 1) {
-    const nextInfoPath = path.join(folder, nextDir, 'info.json')
+    const nextInfoPath = path.join(folder, nextDir, info)
     const nextData = JSON.parse(fs.readFileSync(nextInfoPath, 'utf-8'))
     data.next = {
       url: nextDir,
@@ -29,7 +30,7 @@ export const getNextAndPrev = (folder, name) => {
     }
   }
   if (currentIndex > 0) {
-    const prevInfoPath = path.join(folder, prevDir, 'info.json')
+    const prevInfoPath = path.join(folder, prevDir, info)
     const prevData = JSON.parse(fs.readFileSync(prevInfoPath, 'utf-8'))
     data.prev = {
       url: prevDir,

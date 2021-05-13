@@ -2,6 +2,7 @@ import path from 'path'
 import fs from 'fs'
 import { getSize } from '../../utils/getSize'
 import { getNextAndPrev } from '../../utils/getNextAndPrev'
+import { info, thumbnail, thumbnailJpg } from '../../utils/filenames'
 
 const getHdri = (name) => {
   const resources = path.join(__dirname, '../../files/hdri/')
@@ -21,9 +22,9 @@ const getHdri = (name) => {
         hdri.file = `/files/hdri/${name}/${filename}`
       }
       hdri.url = name
-      if (filename.includes('.png') || filename.includes('.jpg')) {
+      if (filename === thumbnail || filename === thumbnailJpg) {
         hdri.thumbnail = `/files/hdri/${name}/${filename}`
-      } else if (filename.includes('.json')) {
+      } else if (filename === info) {
         hdri = {
           ...hdri,
           ...JSON.parse(fileContents),

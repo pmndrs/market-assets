@@ -1,7 +1,12 @@
 import path from 'path'
 import fs from 'fs'
 import { getSize } from '../../utils/getSize'
-import { thumbnail, model as modelName, info } from '../../utils/filenames'
+import {
+  thumbnail,
+  model as modelName,
+  info,
+  thumbnailJpg,
+} from '../../utils/filenames'
 
 export const getAllModels = () => {
   const resources = path.join(__dirname, '../../files/models/')
@@ -22,7 +27,7 @@ export const getAllModels = () => {
         }
         model.link = `https://api.market.pmnd.rs/models/${folder}`
         model.id = `model/${folder}`
-        if (filename === thumbnail) {
+        if (filename === thumbnail || filename === thumbnailJpg) {
           model.thumbnail = `/files/models/${folder}/${filename}`
         } else if (filename === info) {
           model = {

@@ -2,7 +2,12 @@ import path from 'path'
 import fs from 'fs'
 import { getSize } from '../../../utils/getSize'
 import { getNextAndPrev } from '../../../utils/getNextAndPrev'
-import { info, model as modelName, thumbnail } from '../../../utils/filenames'
+import {
+  info,
+  model as modelName,
+  thumbnail,
+  thumbnailJpg,
+} from '../../../utils/filenames'
 
 const getModel = (name) => {
   const resources = path.join(__dirname, '../../../files/models/')
@@ -17,7 +22,7 @@ const getModel = (name) => {
       const fileContents = fs.readFileSync(filePath, 'utf-8')
 
       model.url = name
-      if (filename === thumbnail) {
+      if (filename === thumbnail || filename === thumbnailJpg) {
         model.thumbnail = `/files/models/${name}/${filename}`
       } else if (filename === info) {
         model = {
