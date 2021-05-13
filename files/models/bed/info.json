@@ -4,10 +4,7 @@
     "name": "Sara Vieira",
     "link": "https://twitter.com/NikkitaFTW"
   },
-  "team": {
-    "name": "pmndrs",
-    "link": "http://pmnd.rs/"
-  },
+  "team": "pmndrs",
   "license": 1,
   "category": "furniture"
 }

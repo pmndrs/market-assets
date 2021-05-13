@@ -1,9 +1,6 @@
 {
   "name": "Van",
-  "creator": {
-    "name": "Kenney",
-    "link": "https://www.kenney.nl/"
-  },
+  "creator": "kenney",
   "license": 1,
   "category": "vehicles"
 }
