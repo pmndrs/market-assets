@@ -4,14 +4,15 @@
   "description": "",
   "keywords": [],
   "scripts": {
-    "start": "vercel dev",
+    "start": "vercel dev --listen 3001",
     "prettier": "prettier --list-different '**/*.{js,jsx,md}'"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^7.26.0",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "vercel": "^22.0.1"
   },
   "dependencies": {
     "lodash.omit": "^4.5.0"
