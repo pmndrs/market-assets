@@ -4,6 +4,7 @@ import { info, model, thumbnail, thumbnailJpg } from '../filenames'
 import { omit } from 'lodash'
 import { s3 } from '../s3'
 import { streamToString } from '../streamToString'
+import { getSize } from '../getSize'
 
 const { ListObjectsCommand, GetObjectCommand } = require('@aws-sdk/client-s3')
 
@@ -103,21 +104,5 @@ export const getAsset = async (assetType, name) => {
     return assets[0]
   } catch (err) {
     console.log('Error', err)
-  }
-}
-
-export const getSize = (starterSize, filename, justNumber = false) => {
-  let size
-  if (filename.includes('_textures')) {
-    size = starterSize / 1000
-  } else {
-    if (!size) size = starterSize / 1000
-  }
-
-  if (justNumber) return { size }
-  return {
-    highPoly: size > 500,
-    size:
-      size > 1000 ? (size / 1000).toFixed(2) + 'MB' : size.toFixed(2) + 'KB',
   }
 }

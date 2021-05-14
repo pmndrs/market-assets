@@ -5,6 +5,7 @@ import { omit } from 'lodash'
 import { s3 } from '../../utils/s3'
 import { streamToString } from '../../utils/streamToString'
 import { getAssetFavorites } from '../../utils/endpoints/favorite'
+import { getSize } from '../../utils/getSize'
 const { ListObjectsCommand, GetObjectCommand } = require('@aws-sdk/client-s3')
 
 const url = (key) =>
@@ -101,22 +102,6 @@ export const getAllAssetType = async (assetType) => {
     return assets
   } catch (err) {
     console.log('Error', err)
-  }
-}
-
-export const getSize = (starterSize, filename, justNumber = false) => {
-  let size
-  if (filename.includes('_textures')) {
-    size = starterSize / 1000
-  } else {
-    if (!size) size = starterSize / 1000
-  }
-
-  if (justNumber) return { size }
-  return {
-    highPoly: size > 500,
-    size:
-      size > 1000 ? (size / 1000).toFixed(2) + 'MB' : size.toFixed(2) + 'KB',
   }
 }
 

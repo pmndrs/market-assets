@@ -4,6 +4,7 @@ import { info, model, thumbnail, thumbnailJpg } from '../filenames'
 import { omit } from 'lodash'
 import { s3 } from '../s3'
 import { streamToString } from '../streamToString'
+import { getSize } from '../getSize'
 
 const { ListObjectsCommand, GetObjectCommand } = require('@aws-sdk/client-s3')
 
@@ -78,22 +79,6 @@ export const getAssetFavorites = async (favs) => {
             const body = await streamToString(data.Body)
             const info = JSON.parse(body)
 
-            if (info.maps) {
-              info.maps = Object.keys(info.maps).reduce((acc, curr) => {
-                acc[
-                  curr
-                ] = `https://market.pmnd.rs.fra1.digitaloceanspaces.com/market-assets/${type}/${folder}/${info.maps[curr]}`
-
-                return acc
-              }, {})
-              info.sizes = {}
-              Object.values(info.maps).map((link, i) => {
-                // const { size } = getSize(file.Size, true)
-                const name = Object.keys(info.maps)[i]
-                info.sizes[name] = file.Size
-                return null
-              })
-            }
             asset = {
               ...asset,
               ...info,
@@ -115,21 +100,5 @@ export const getAssetFavorites = async (favs) => {
     return data
   } catch (err) {
     console.log('Error', err)
-  }
-}
-
-export const getSize = (starterSize, filename, justNumber = false) => {
-  let size
-  if (filename.includes('_textures')) {
-    size = starterSize / 1000
-  } else {
-    if (!size) size = starterSize / 1000
-  }
-
-  if (justNumber) return { size }
-  return {
-    highPoly: size > 500,
-    size:
-      size > 1000 ? (size / 1000).toFixed(2) + 'MB' : size.toFixed(2) + 'KB',
   }
 }
