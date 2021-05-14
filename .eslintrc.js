@@ -13,5 +13,7 @@ module.exports = {
     __dirname: true,
     process: true,
     module: true,
+    require: true,
+    Buffer: true,
   },
 }

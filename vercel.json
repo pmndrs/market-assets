@@ -98,18 +98,18 @@
       "source": "/materials/categories",
       "destination": "/api/materials/categories"
     },
-    { "source": "/hdri", "destination": "/api/hdri" },
+    { "source": "/hdris", "destination": "/api/hdri" },
     {
-      "source": "/hdri/:name",
-      "destination": "/api/hdri/:name"
+      "source": "/hdris/:name",
+      "destination": "/api/hdris/:name"
     },
     {
-      "source": "/hdri/paths",
-      "destination": "/api/hdri/paths"
+      "source": "/hdris/paths",
+      "destination": "/api/hdris/paths"
     },
     {
-      "source": "/hdri/categories",
-      "destination": "/api/hdri/categories"
+      "source": "/hdris/categories",
+      "destination": "/api/hdris/categories"
     },
     { "source": "/models", "destination": "/api/models" },
     {
