@@ -4,6 +4,7 @@ import { info, model, thumbnail, thumbnailJpg } from '../../utils/filenames'
 import { omit } from 'lodash'
 import { s3 } from '../../utils/s3'
 import { streamToString } from '../../utils/streamToString'
+import { getAssetFavorites } from '../../utils/endpoints/favorite'
 const { ListObjectsCommand, GetObjectCommand } = require('@aws-sdk/client-s3')
 
 const url = (key) =>
@@ -121,7 +122,12 @@ export const getSize = (starterSize, filename, justNumber = false) => {
 
 export default async function handler(req, res) {
   const assetType = req.query.type
-  const assets = await getAllAssetType(assetType)
+  if (assetType === 'favorites') {
+    const team = await getAssetFavorites(req.query.favs)
+    res.status(200).json(team)
+  } else {
+    const assets = await getAllAssetType(assetType)
 
-  res.status(200).json(assets)
+    res.status(200).json(assets)
+  }
 }

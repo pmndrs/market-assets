@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/**/*": {
-      "includeFiles": "files/**/*"
-    }
-  },
   "headers": [
     {
       "source": "/materials/(.*)",
