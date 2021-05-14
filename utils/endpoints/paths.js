@@ -1,7 +1,7 @@
-import { s3 } from '../../utils/s3'
+import { s3 } from '../s3'
 import { ListObjectsCommand } from '@aws-sdk/client-s3'
 
-export const getAllMaterialLinks = async (assetType) => {
+export const getAllAssetLinks = async (assetType) => {
   const data = await s3.send(
     new ListObjectsCommand({
       Bucket: 'market.pmnd.rs',
@@ -18,10 +18,4 @@ export const getAllMaterialLinks = async (assetType) => {
   })
 
   return assets
-}
-
-export default async function handler(req, res) {
-  const paths = await getAllMaterialLinks(req.query.type)
-
-  res.status(200).json(paths)
 }

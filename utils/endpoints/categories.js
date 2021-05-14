@@ -1,6 +1,6 @@
-import { getAllAssetType } from './'
+import { getAllAssetType } from '../../api/[type]'
 
-const getAllCategories = async (assetType) => {
+export const getAllCategories = async (assetType) => {
   const assets = await getAllAssetType(assetType)
   const categories = assets.reduce((acc, curr) => {
     const cat = curr.category
@@ -17,11 +17,4 @@ const getAllCategories = async (assetType) => {
   }, {})
 
   return Object.values(categories)
-}
-
-export default async function handler(req, res) {
-  const assetType = req.query.type
-  const categories = await getAllCategories(assetType)
-
-  res.status(200).json(categories)
 }
