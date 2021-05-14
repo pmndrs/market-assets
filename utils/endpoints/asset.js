@@ -10,7 +10,7 @@ const { ListObjectsCommand, GetObjectCommand } = require('@aws-sdk/client-s3')
 const url = (key) =>
   `https://market.pmnd.rs.fra1.cdn.digitaloceanspaces.com/${key}`
 
-export const getAllAssetType = async (assetType, name) => {
+export const getAsset = async (assetType, name) => {
   try {
     const data = await s3.send(
       new ListObjectsCommand({
