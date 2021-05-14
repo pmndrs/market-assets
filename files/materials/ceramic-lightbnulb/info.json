@@ -1,9 +1,6 @@
 {
   "name": "Ceramic Lightbulb",
-  "creator": {
-    "name": "Blender Community",
-    "link": "https://github.com/blender/blender/tree/master/release/datafiles/studiolights/matcap"
-  },
+  "creator": "blenderCommunity",
   "license": 1,
   "category": "matcaps"
 }

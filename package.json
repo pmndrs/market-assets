@@ -15,6 +15,9 @@
     "vercel": "^22.0.1"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.15.0",
+    "aws-sdk": "^2.906.0",
+    "dotenv": "^9.0.2",
     "lodash.omit": "^4.5.0"
   }
 }
