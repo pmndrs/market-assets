@@ -1,21 +1,27 @@
-import path from "path";
-import fs from "fs";
+import { s3 } from '../../utils/s3'
+import { ListObjectsCommand } from '@aws-sdk/client-s3'
 
-export const getAllMaterialLinks = () => {
-  const resources = path.join(__dirname, "../../files/materials/");
-  const folders = fs.readdirSync(resources);
-  const models = folders
-    .filter((folder) => {
-      const newPath = path.join(resources, folder);
-      return fs.statSync(newPath).isDirectory();
+export const getAllMaterialLinks = async (assetType) => {
+  const data = await s3.send(
+    new ListObjectsCommand({
+      Bucket: 'market.pmnd.rs',
+      Prefix: `market-assets/${assetType}/`,
+      Delimiter: '/',
     })
-    .map((a) => `/material/${a}`);
+  )
+  const folders = data.CommonPrefixes
+  const assets = folders.map((a) => {
+    const url = a.Prefix.split('market-assets/')[1]
+    const [type, folder] = url.split('/')
 
-  return models;
-};
+    return `/${type.slice(0, -1)}/${folder}`
+  })
 
-export default function handler(req, res) {
-  const paths = getAllMaterialLinks();
+  return assets
+}
 
-  res.status(200).json(paths);
+export default async function handler(req, res) {
+  const paths = await getAllMaterialLinks(req.query.type)
+
+  res.status(200).json(paths)
 }

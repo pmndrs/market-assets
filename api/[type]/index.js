@@ -10,7 +10,6 @@ const url = (key) =>
   `https://market.pmnd.rs.fra1.cdn.digitaloceanspaces.com/${key}`
 
 export const getAllAssetType = async (assetType) => {
-  console.log(assetType)
   try {
     const data = await s3.send(
       new ListObjectsCommand({

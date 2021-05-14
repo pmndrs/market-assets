@@ -98,7 +98,7 @@
       "source": "/materials/categories",
       "destination": "/api/materials/categories"
     },
-    { "source": "/hdris", "destination": "/api/hdri" },
+    { "source": "/hdris", "destination": "/api/hdris" },
     {
       "source": "/hdris/:name",
       "destination": "/api/hdris/:name"
