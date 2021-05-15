@@ -82,6 +82,14 @@
     { "source": "/teams/:slug", "destination": "/api/teams/:slug" },
     { "source": "/creators/:slug", "destination": "/api/creators/:slug" },
     {
+      "source": "/teams/:slug/assets",
+      "destination": "/api/teams/:slug/assets"
+    },
+    {
+      "source": "/creators/:slug/assets",
+      "destination": "/api/creators/:slug/assets"
+    },
+    {
       "source": "/materials/:name",
       "destination": "/api/materials/:name"
     },
