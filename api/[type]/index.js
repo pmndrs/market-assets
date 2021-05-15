@@ -74,7 +74,7 @@ export const getAllAssetType = async (assetType) => {
             info.maps = Object.keys(info.maps).reduce((acc, curr) => {
               acc[
                 curr
-              ] = `https://market-assets.fra1.digitaloceanspaces.com/market-assets/${type}/${folder}/${info.maps[curr]}`
+              ] = `https://market-assets.fra1.cdn.digitaloceanspaces.com/market-assets/${type}/${folder}/${info.maps[curr]}`
 
               return acc
             }, {})
