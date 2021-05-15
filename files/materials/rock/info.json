@@ -1,0 +1,16 @@
+{
+  "name": "Rock",
+  "creator": {
+    "name": "cc0textures",
+    "link": "https://cc0textures.com/view?id=Rock020"
+  },
+  "license": 1,
+  "category": "PBR",
+  "maps": {
+    "aoMap": "Rock020_1K_AmbientOcclusion.jpg",
+    "map": "Rock020_1K_Color.jpg",
+    "displacementMap": "Rock020_1K_Displacement.jpg",
+    "normalMap": "Rock020_1K_Normal.jpg",
+    "roughnessMap": "Rock020_1K_Roughness.jpg"
+  }
+}
