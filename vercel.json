@@ -86,10 +86,6 @@
       "destination": "/api/materials/:name"
     },
     {
-      "source": "/materials/paths",
-      "destination": "/api/materials/paths"
-    },
-    {
       "source": "/materials/categories",
       "destination": "/api/materials/categories"
     },
@@ -97,10 +93,6 @@
     {
       "source": "/hdris/:name",
       "destination": "/api/hdris/:name"
-    },
-    {
-      "source": "/hdris/paths",
-      "destination": "/api/hdris/paths"
     },
     {
       "source": "/hdris/categories",
@@ -118,10 +110,6 @@
     {
       "source": "/models/:name/buffer",
       "destination": "/api/models/:name/buffer"
-    },
-    {
-      "source": "/models/paths",
-      "destination": "/api/models/paths"
     },
     {
       "source": "/models/categories",
