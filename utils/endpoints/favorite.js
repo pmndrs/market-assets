@@ -9,7 +9,7 @@ import { getSize } from '../getSize'
 const { ListObjectsCommand, GetObjectCommand } = require('@aws-sdk/client-s3')
 
 const url = (key) =>
-  `https://market.pmnd.rs.fra1.cdn.digitaloceanspaces.com/${key}`
+  `https://market-assets.fra1.cdn.digitaloceanspaces.com/${key}`
 
 export const getAssetFavorites = async (favs) => {
   try {
@@ -22,7 +22,7 @@ export const getAssetFavorites = async (favs) => {
       const [assetType, name] = fav.split('/')
       const data = await s3.send(
         new ListObjectsCommand({
-          Bucket: 'market.pmnd.rs',
+          Bucket: 'market-assets',
           Prefix: `market-assets/${assetType}/${name}/`,
         })
       )
@@ -35,7 +35,7 @@ export const getAssetFavorites = async (favs) => {
         const returnObj = {
           ...current,
           id: `${assetType.slice(0, -1)}/${folder}`,
-          link: `https://api.market.pmnd.rs/${assetType}/${folder}`,
+          link: `https://api.market-assets/${assetType}/${folder}`,
         }
         if (acc[folder]) {
           acc[folder] = acc[folder].concat(returnObj)
@@ -72,7 +72,7 @@ export const getAssetFavorites = async (favs) => {
           if (fileName === info) {
             const data = await s3.send(
               new GetObjectCommand({
-                Bucket: 'market.pmnd.rs',
+                Bucket: 'market-assets',
                 Key: file.Key,
               })
             )

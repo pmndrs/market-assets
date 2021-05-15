@@ -4,7 +4,7 @@ import { ListObjectsCommand } from '@aws-sdk/client-s3'
 export const getAllAssetLinks = async (assetType) => {
   const data = await s3.send(
     new ListObjectsCommand({
-      Bucket: 'market.pmnd.rs',
+      Bucket: 'market-assets',
       Prefix: `market-assets/${assetType}/`,
       Delimiter: '/',
     })

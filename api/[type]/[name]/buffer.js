@@ -6,7 +6,7 @@ import { s3 } from '../../../utils/s3'
 const getBuffer = async (assetType, name) => {
   const data = await s3.send(
     new GetObjectCommand({
-      Bucket: 'market.pmnd.rs',
+      Bucket: 'market-assets',
       Key: `market-assets/${assetType}/${name}/${model}`,
     })
   )

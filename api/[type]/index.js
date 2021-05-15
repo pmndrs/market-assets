@@ -9,13 +9,13 @@ import { getSize } from '../../utils/getSize'
 const { ListObjectsCommand, GetObjectCommand } = require('@aws-sdk/client-s3')
 
 const url = (key) =>
-  `https://market.pmnd.rs.fra1.cdn.digitaloceanspaces.com/${key}`
+  `https://market-assets.fra1.cdn.digitaloceanspaces.com/${key}`
 
 export const getAllAssetType = async (assetType) => {
   try {
     const data = await s3.send(
       new ListObjectsCommand({
-        Bucket: 'market.pmnd.rs',
+        Bucket: 'market-assets',
         Prefix: `market-assets/${assetType}/`,
       })
     )
@@ -28,7 +28,7 @@ export const getAllAssetType = async (assetType) => {
       const returnObj = {
         ...current,
         id: `${assetType.slice(0, -1)}/${folder}`,
-        link: `https://api.market.pmnd.rs/${assetType}/${folder}`,
+        link: `https://api.market-assets/${assetType}/${folder}`,
       }
       if (acc[folder]) {
         acc[folder] = acc[folder].concat(returnObj)
@@ -63,7 +63,7 @@ export const getAllAssetType = async (assetType) => {
         if (fileName === info) {
           const data = await s3.send(
             new GetObjectCommand({
-              Bucket: 'market.pmnd.rs',
+              Bucket: 'market-assets',
               Key: file.Key,
             })
           )
@@ -74,7 +74,7 @@ export const getAllAssetType = async (assetType) => {
             info.maps = Object.keys(info.maps).reduce((acc, curr) => {
               acc[
                 curr
-              ] = `https://market.pmnd.rs.fra1.digitaloceanspaces.com/market-assets/${type}/${folder}/${info.maps[curr]}`
+              ] = `https://market-assets.fra1.digitaloceanspaces.com/market-assets/${type}/${folder}/${info.maps[curr]}`
 
               return acc
             }, {})

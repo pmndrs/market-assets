@@ -7,7 +7,7 @@ export const getTeam = async (slug) => {
   console.log(`market-assets/team/${slug}/${info}`)
   const data = await s3.send(
     new GetObjectCommand({
-      Bucket: 'market.pmnd.rs',
+      Bucket: 'market-assets',
       Key: `market-assets/teams/${slug}/${info}`,
     })
   )

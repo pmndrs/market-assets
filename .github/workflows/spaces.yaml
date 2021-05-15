@@ -13,6 +13,6 @@ jobs:
         env:
           SOURCE_DIR: './files/'
           SPACE_REGION: 'fra1'
-          SPACE_NAME: market.pmnd.rs
+          SPACE_NAME: market-assets
           SPACE_ACCESS_KEY: ${{ secrets.SPACE_ACCESS_KEY }}
           SPACE_SECRET_KEY: ${{ secrets.SPACE_SECRET_KEY }}
