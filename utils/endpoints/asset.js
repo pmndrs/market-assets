@@ -5,6 +5,8 @@ import { omit } from 'lodash'
 import { s3 } from '../s3'
 import { streamToString } from '../streamToString'
 import { getSize } from '../getSize'
+import { getCreator } from './creator'
+import { getTeam } from './team'
 
 const { ListObjectsCommand, GetObjectCommand } = require('@aws-sdk/client-s3')
 
@@ -72,6 +74,14 @@ export const getAsset = async (assetType, name) => {
           const body = await streamToString(data.Body)
           const info = JSON.parse(body)
 
+          if (typeof info.creator === 'string') {
+            info.creator = await getCreator(info.creator)
+          }
+
+          if (typeof info.team === 'string') {
+            info.team = await getTeam(info.team)
+          }
+
           if (info.maps) {
             info.maps = Object.keys(info.maps).reduce((acc, curr) => {
               acc[
@@ -93,14 +103,12 @@ export const getAsset = async (assetType, name) => {
             ...info,
           }
         }
-
         return asset
       })
       const allAssets = await Promise.all(singleFile)
       return allAssets.reduce((r, c) => Object.assign(r, c), {})
     })
     const assets = await Promise.all(filesValues)
-
     return assets[0]
   } catch (err) {
     console.log('Error', err)

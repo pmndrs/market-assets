@@ -28,7 +28,7 @@ export const getAllAssetType = async (assetType) => {
       const returnObj = {
         ...current,
         id: `${assetType.slice(0, -1)}/${folder}`,
-        link: `https://api.market-assets/${assetType}/${folder}`,
+        link: `https://api.market.pmnd.rs/${assetType}/${folder}`,
       }
       if (acc[folder]) {
         acc[folder] = acc[folder].concat(returnObj)
