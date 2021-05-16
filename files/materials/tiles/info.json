@@ -9,7 +9,6 @@
   "maps": {
     "map": "Tiles036_1K_Color.jpg",
     "displacementMap": "Tiles036_1K_Displacement.jpg",
-    "metalnessMap": "Tiles036_1K_Metalness.jpg",
     "normalMap": "Tiles036_1K_Normal.jpg",
     "roughnessMap": "Tiles036_1K_Roughness.jpg"
   }
