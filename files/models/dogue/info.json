@@ -1,0 +1,10 @@
+{
+  "name": "Dogue",
+  "team": "spline",
+  "creator": [
+    { "name": "Reuben Sotomayor", "link": "https://twitter.com/CGIxruubeenx" },
+    { "name": "Alejandro León", "link": "https://twitter.com/alelepd" }
+  ],
+  "license": 1,
+  "category": "animals"
+}
