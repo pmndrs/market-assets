@@ -7,11 +7,17 @@ import { streamToString } from '../streamToString'
 import { getSize } from '../getSize'
 import { getCreator } from './creator'
 import { getTeam } from './team'
-
+import fetch from 'node-fetch'
+import { API, CDN_URL, FATHOM } from '../urls'
 const { ListObjectsCommand, GetObjectCommand } = require('@aws-sdk/client-s3')
 
-const url = (key) =>
-  `https://market-assets.fra1.cdn.digitaloceanspaces.com/${key}`
+const getViews = async (id) => {
+  const data = await fetch(FATHOM).then((a) => a.json())
+
+  const assetViews = data.find((d) => d.pathname === `/${id}`) || {}
+
+  return assetViews
+}
 
 export const getAsset = async (assetType, name) => {
   try {
@@ -27,10 +33,12 @@ export const getAsset = async (assetType, name) => {
       const [_, __, folder, fileName] = curr.Key.split('/')
       const current = omit(curr, ['Owner', 'StorageClass'])
       if (folder === '.DS_Store' || fileName === '.DS_Store') return acc
+      const id = `${assetType.slice(0, -1)}/${folder}`
       const returnObj = {
         ...current,
-        id: `${assetType.slice(0, -1)}/${folder}`,
-        link: `https://api.market-assets/${assetType}/${folder}`,
+        id,
+        link: `${API}${assetType}/${folder}`,
+        lastModified: curr.LastModified,
       }
       if (acc[folder]) {
         acc[folder] = acc[folder].concat(returnObj)
@@ -46,14 +54,14 @@ export const getAsset = async (assetType, name) => {
         const [_, type, folder, fileName] = file.Key.split('/')
         let asset = { ...omit(file, ['ETag', 'LastModified', 'Key', 'Size']) }
         if (fileName === thumbnail || fileName === thumbnailJpg) {
-          asset.thumbnail = url(file.Key)
+          asset.thumbnail = CDN_URL(file.Key)
         }
 
         if (fileName === model) {
           const { size, highPoly } = getSize(file.Size, fileName)
           asset.size = size
           asset.highPoly = highPoly
-          asset.file = url(file.Key)
+          asset.file = CDN_URL(file.Key)
         }
         if (
           fileName.includes('.hdr') ||
@@ -62,7 +70,7 @@ export const getAsset = async (assetType, name) => {
         ) {
           const { size } = getSize(file.Size, fileName)
           asset.size = size
-          asset.file = url(file.Key)
+          asset.file = CDN_URL(file.Key)
         }
         if (fileName === info) {
           const data = await s3.send(
@@ -84,9 +92,7 @@ export const getAsset = async (assetType, name) => {
 
           if (info.maps) {
             info.maps = Object.keys(info.maps).reduce((acc, curr) => {
-              acc[
-                curr
-              ] = `https://market-assets.fra1.cdn.digitaloceanspaces.com/market-assets/${type}/${folder}/${info.maps[curr]}`
+              acc[curr] = CDN_URL(`${type}/${folder}/${info.maps[curr]}`)
 
               return acc
             }, {})
@@ -109,7 +115,11 @@ export const getAsset = async (assetType, name) => {
       return allAssets.reduce((r, c) => Object.assign(r, c), {})
     })
     const assets = await Promise.all(filesValues)
-    return assets[0]
+    const assetViews = await getViews(assets[0].id)
+    return {
+      ...assets[0],
+      views: parseInt(assetViews.views || 0),
+    }
   } catch (err) {
     console.log('Error', err)
   }

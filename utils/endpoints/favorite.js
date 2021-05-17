@@ -5,11 +5,9 @@ import { omit } from 'lodash'
 import { s3 } from '../s3'
 import { streamToString } from '../streamToString'
 import { getSize } from '../getSize'
+import { API, CDN_URL } from '../urls'
 
 const { ListObjectsCommand, GetObjectCommand } = require('@aws-sdk/client-s3')
-
-const url = (key) =>
-  `https://market-assets.fra1.cdn.digitaloceanspaces.com/${key}`
 
 export const getAssetFavorites = async (favs) => {
   try {
@@ -35,7 +33,7 @@ export const getAssetFavorites = async (favs) => {
         const returnObj = {
           ...current,
           id: `${assetType.slice(0, -1)}/${folder}`,
-          link: `https://api.market-assets/${assetType}/${folder}`,
+          link: `${API}${assetType}/${folder}`,
         }
         if (acc[folder]) {
           acc[folder] = acc[folder].concat(returnObj)
@@ -51,14 +49,14 @@ export const getAssetFavorites = async (favs) => {
           const [_, type, folder, fileName] = file.Key.split('/')
           let asset = { ...omit(file, ['ETag', 'LastModified', 'Key', 'Size']) }
           if (fileName === thumbnail || fileName === thumbnailJpg) {
-            asset.thumbnail = url(file.Key)
+            asset.thumbnail = CDN_URL(file.Key)
           }
 
           if (fileName === model) {
             const { size, highPoly } = getSize(file.Size, fileName)
             asset.size = size
             asset.highPoly = highPoly
-            asset.file = url(file.Key)
+            asset.file = CDN_URL(file.Key)
           }
           if (
             fileName.includes('.hdr') ||
@@ -67,7 +65,7 @@ export const getAssetFavorites = async (favs) => {
           ) {
             const { size } = getSize(file.Size, fileName)
             asset.size = size
-            asset.file = url(file.Key)
+            asset.file = CDN_URL(file.Key)
           }
           if (fileName === info) {
             const data = await s3.send(

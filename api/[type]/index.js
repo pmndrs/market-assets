@@ -7,9 +7,14 @@ import { streamToString } from '../../utils/streamToString'
 import { getAssetFavorites } from '../../utils/endpoints/favorite'
 import { getSize } from '../../utils/getSize'
 const { ListObjectsCommand, GetObjectCommand } = require('@aws-sdk/client-s3')
+import fetch from 'node-fetch'
+import { API, CDN_URL, FATHOM } from '../../utils/urls'
 
-const url = (key) =>
-  `https://market-assets.fra1.cdn.digitaloceanspaces.com/${key}`
+const getViews = async () => {
+  const data = await fetch(FATHOM).then((a) => a.json())
+
+  return data
+}
 
 export const getAllAssetType = async (assetType) => {
   try {
@@ -20,15 +25,22 @@ export const getAllAssetType = async (assetType) => {
       })
     )
 
+    const views = await getViews()
+
     const values = data.Contents.reduce((acc, curr) => {
       // eslint-disable-next-line no-unused-vars
       const [_, __, folder, fileName] = curr.Key.split('/')
       const current = omit(curr, ['Owner', 'StorageClass'])
       if (folder === '.DS_Store' || fileName === '.DS_Store') return acc
+      const id = `${assetType.slice(0, -1)}/${folder}`
+      const assetViews = views.find((d) => d.pathname === `/${id}`) || {}
+
       const returnObj = {
         ...current,
-        id: `${assetType.slice(0, -1)}/${folder}`,
-        link: `https://api.market.pmnd.rs/${assetType}/${folder}`,
+        id,
+        link: `${API}${assetType}/${folder}`,
+        lastModified: curr.LastModified,
+        views: parseInt(assetViews.views || 0),
       }
       if (acc[folder]) {
         acc[folder] = acc[folder].concat(returnObj)
@@ -44,7 +56,7 @@ export const getAllAssetType = async (assetType) => {
         const [_, type, folder, fileName] = file.Key.split('/')
         let asset = { ...omit(file, ['ETag', 'LastModified', 'Key', 'Size']) }
         if (fileName === thumbnail || fileName === thumbnailJpg) {
-          asset.thumbnail = url(file.Key)
+          asset.thumbnail = CDN_URL(file.Key)
         }
 
         if (fileName === model) {
@@ -72,9 +84,7 @@ export const getAllAssetType = async (assetType) => {
 
           if (info.maps) {
             info.maps = Object.keys(info.maps).reduce((acc, curr) => {
-              acc[
-                curr
-              ] = `https://market-assets.fra1.cdn.digitaloceanspaces.com/market-assets/${type}/${folder}/${info.maps[curr]}`
+              acc[curr] = CDN_URL(`${type}/${folder}/${info.maps[curr]}`)
 
               return acc
             }, {})
