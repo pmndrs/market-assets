@@ -92,7 +92,9 @@ export const getAsset = async (assetType, name) => {
 
           if (info.maps) {
             info.maps = Object.keys(info.maps).reduce((acc, curr) => {
-              acc[curr] = CDN_URL(`${type}/${folder}/${info.maps[curr]}`)
+              acc[curr] = CDN_URL(
+                `market-assets/${type}/${folder}/${info.maps[curr]}`
+              )
 
               return acc
             }, {})
