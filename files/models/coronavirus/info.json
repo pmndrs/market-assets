@@ -1,0 +1,9 @@
+{
+    "name": "Coronavirus",
+    "team": "spline",
+    "creator": [
+      { "name": "Alejandro León", "link": "https://twitter.com/alelepd" }
+    ],
+    "license": 1,
+    "category": "health"
+  }
