@@ -9,7 +9,15 @@ import { getCreator } from './creator'
 import { getTeam } from './team'
 import fetch from 'node-fetch'
 import { API, CDN_URL, FATHOM } from '../urls'
-const { ListObjectsCommand, GetObjectCommand } = require('@aws-sdk/client-s3')
+import { ListObjectsCommand, GetObjectCommand } from '@aws-sdk/client-s3'
+import { NodeIO } from '@gltf-transform/core'
+import { inspect } from '@gltf-transform/functions'
+import {
+  DracoMeshCompression,
+  MaterialsUnlit,
+  Unlit,
+} from '@gltf-transform/extensions'
+import draco3d from 'draco3dgltf'
 
 const getViews = async (id) => {
   const data = await fetch(FATHOM).then((a) => a.json())
@@ -62,6 +70,29 @@ export const getAsset = async (assetType, name) => {
           asset.size = size
           asset.highPoly = highPoly
           asset.file = CDN_URL(file.Key)
+          try {
+            const io = new NodeIO()
+              .registerExtensions([DracoMeshCompression, MaterialsUnlit])
+              .registerDependencies({
+                'draco3d.decoder': await draco3d.createDecoderModule(),
+                'draco3d.encoder': await draco3d.createEncoderModule(),
+              })
+            const json = await fetch(asset.file).then((rsp) => rsp.json())
+            const document = io.readJSON({ json })
+            document
+              .createExtension(DracoMeshCompression)
+              .setRequired(true)
+              .setEncoderOptions({
+                method: DracoMeshCompression.EncoderMethod.EDGEBREAKER,
+                encodeSpeed: 5,
+                decodeSpeed: 5,
+              })
+            document.createExtension(MaterialsUnlit)
+            const report = inspect(document)
+            console.log(report)
+          } catch (e) {
+            console.log('-----------', e, '-----------')
+          }
         }
         if (
           fileName.includes('.hdr') ||
