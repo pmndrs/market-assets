@@ -1,6 +1,12 @@
 require('dotenv').config()
 
-import { info, model, thumbnail, thumbnailJpg } from '../filenames'
+import {
+  info,
+  isMaterialOrHdr,
+  model,
+  thumbnail,
+  thumbnailJpg,
+} from '../filenames'
 import { omit } from 'lodash'
 import { s3 } from '../s3'
 import { streamToString } from '../streamToString'
@@ -9,7 +15,8 @@ import { getCreator } from './creator'
 import { getTeam } from './team'
 import fetch from 'node-fetch'
 import { API, CDN_URL, FATHOM } from '../urls'
-const { ListObjectsCommand, GetObjectCommand } = require('@aws-sdk/client-s3')
+import { ListObjectsCommand, GetObjectCommand } from '@aws-sdk/client-s3'
+import { getPolygonCount } from '../getPolygonCount'
 
 const getViews = async (id) => {
   const data = await fetch(FATHOM).then((a) => a.json())
@@ -59,15 +66,17 @@ export const getAsset = async (assetType, name) => {
 
         if (fileName === model) {
           const { size, highPoly } = getSize(file.Size, fileName)
-          asset.size = size
-          asset.highPoly = highPoly
-          asset.file = CDN_URL(file.Key)
+          const { faces, vertices } = await getPolygonCount(file.Key)
+
+          asset = {
+            ...asset,
+            size,
+            highPoly,
+            vertices,
+            faces,
+          }
         }
-        if (
-          fileName.includes('.hdr') ||
-          fileName.includes('.exr') ||
-          (fileName.includes('.jpg') && fileName !== thumbnailJpg)
-        ) {
+        if (isMaterialOrHdr(fileName)) {
           const { size } = getSize(file.Size, fileName)
           asset.size = size
           asset.file = CDN_URL(file.Key)

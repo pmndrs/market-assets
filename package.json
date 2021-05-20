@@ -19,8 +19,12 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.15.0",
+    "@gltf-transform/core": "^0.11.0",
+    "@gltf-transform/extensions": "^0.11.0",
+    "@gltf-transform/functions": "^0.11.0",
     "aws-sdk": "^2.906.0",
     "dotenv": "^9.0.2",
+    "draco3dgltf": "^1.4.1",
     "lodash.omit": "^4.5.0",
     "node-fetch": "^2.6.1"
   }
