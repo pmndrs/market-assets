@@ -1,6 +1,12 @@
 require('dotenv').config()
 
-import { info, model, thumbnail, thumbnailJpg } from '../filenames'
+import {
+  info,
+  isMaterialOrHdr,
+  model,
+  thumbnail,
+  thumbnailJpg,
+} from '../filenames'
 import { omit } from 'lodash'
 import { s3 } from '../s3'
 import { streamToString } from '../streamToString'
@@ -10,14 +16,7 @@ import { getTeam } from './team'
 import fetch from 'node-fetch'
 import { API, CDN_URL, FATHOM } from '../urls'
 import { ListObjectsCommand, GetObjectCommand } from '@aws-sdk/client-s3'
-import { NodeIO } from '@gltf-transform/core'
-import { inspect } from '@gltf-transform/functions'
-import {
-  DracoMeshCompression,
-  MaterialsUnlit,
-  Unlit,
-} from '@gltf-transform/extensions'
-import draco3d from 'draco3dgltf'
+import { getPolygonCount } from '../getPolygonCount'
 
 const getViews = async (id) => {
   const data = await fetch(FATHOM).then((a) => a.json())
@@ -67,38 +66,17 @@ export const getAsset = async (assetType, name) => {
 
         if (fileName === model) {
           const { size, highPoly } = getSize(file.Size, fileName)
-          asset.size = size
-          asset.highPoly = highPoly
-          asset.file = CDN_URL(file.Key)
-          try {
-            const io = new NodeIO()
-              .registerExtensions([DracoMeshCompression, MaterialsUnlit])
-              .registerDependencies({
-                'draco3d.decoder': await draco3d.createDecoderModule(),
-                'draco3d.encoder': await draco3d.createEncoderModule(),
-              })
-            const json = await fetch(asset.file).then((rsp) => rsp.json())
-            const document = io.readJSON({ json })
-            document
-              .createExtension(DracoMeshCompression)
-              .setRequired(true)
-              .setEncoderOptions({
-                method: DracoMeshCompression.EncoderMethod.EDGEBREAKER,
-                encodeSpeed: 5,
-                decodeSpeed: 5,
-              })
-            document.createExtension(MaterialsUnlit)
-            const report = inspect(document)
-            console.log(report)
-          } catch (e) {
-            console.log('-----------', e, '-----------')
+          const { faces, vertices } = await getPolygonCount(file.Key)
+
+          asset = {
+            ...asset,
+            size,
+            highPoly,
+            vertices,
+            faces,
           }
         }
-        if (
-          fileName.includes('.hdr') ||
-          fileName.includes('.exr') ||
-          (fileName.includes('.jpg') && fileName !== thumbnailJpg)
-        ) {
+        if (isMaterialOrHdr(fileName)) {
           const { size } = getSize(file.Size, fileName)
           asset.size = size
           asset.file = CDN_URL(file.Key)
