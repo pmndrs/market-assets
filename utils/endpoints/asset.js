@@ -74,7 +74,8 @@ export const getAsset = async (assetType, name) => {
             highPoly,
             vertices,
             faces,
-          }
+            file: CDN_URL(file.Key),
+          
         }
         if (isMaterialOrHdr(fileName)) {
           const { size } = getSize(file.Size, fileName)
