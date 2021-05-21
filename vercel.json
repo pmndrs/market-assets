@@ -1,4 +1,5 @@
 {
+  "includeFiles": ["utils/draco/**"],
   "headers": [
     {
       "source": "/materials/(.*)",
