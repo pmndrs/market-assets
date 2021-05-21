@@ -5,7 +5,7 @@ import {
   DracoMeshCompression,
   MaterialsUnlit,
 } from '@gltf-transform/extensions'
-import decoder from 'draco3dgltf/draco_decoder_gltf_nodejs'
+import decoder from './draco/decoder'
 import { CDN_URL } from './urls'
 
 function decodeDataURI(resource, resources) {
