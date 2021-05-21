@@ -5,7 +5,7 @@ import {
   DracoMeshCompression,
   MaterialsUnlit,
 } from '@gltf-transform/extensions'
-import draco3d from 'draco3dgltf'
+import decoder from 'draco3dgltf/draco_decoder_gltf_nodejs'
 import { CDN_URL } from './urls'
 
 function decodeDataURI(resource, resources) {
@@ -20,8 +20,7 @@ export const getPolygonCount = async (url) => {
     const io = new NodeIO()
       .registerExtensions([DracoMeshCompression, MaterialsUnlit])
       .registerDependencies({
-        'draco3d.decoder': await draco3d.createDecoderModule(),
-        'draco3d.encoder': await draco3d.createEncoderModule(),
+        'draco3d.decoder': await decoder(),
       })
     const json = await fetch(CDN_URL(url)).then((rsp) => rsp.json())
     const resources = {}

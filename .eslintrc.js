@@ -16,4 +16,5 @@ module.exports = {
     require: true,
     Buffer: true,
   },
+  ignorePatterns: ['utils/draco/**.js'],
 }
