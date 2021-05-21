@@ -66,15 +66,14 @@ export const getAsset = async (assetType, name) => {
 
         if (fileName === model) {
           const { size, highPoly } = getSize(file.Size, fileName)
-          const { faces, vertices } = await getPolygonCount(file.Key)
+          const stats = await getPolygonCount(file.Key)
 
           asset = {
             ...asset,
             size,
             highPoly,
-            vertices,
-            faces,
             file: CDN_URL(file.Key),
+            stats,
           }
         }
         if (isMaterialOrHdr(fileName)) {
