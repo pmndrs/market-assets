@@ -1,4 +1,9 @@
 {
+  "functions": {
+    "api/[type]/[name]/index.js": {
+      "includeFiles": "utils/draco/**"
+    }
+  },
   "headers": [
     {
       "source": "/materials/(.*)",
