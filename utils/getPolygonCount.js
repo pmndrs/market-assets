@@ -45,7 +45,6 @@ export const getPolygonCount = async (url) => {
       (acc, curr) => (acc = curr.vertices + acc),
       0
     )
-    console.log(json)
     return {
       extensions: json.extensionsRequired,
       faces,
