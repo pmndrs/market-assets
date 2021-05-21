@@ -1,5 +1,11 @@
 import fetch from 'node-fetch'
-import { BufferUtils, FileUtils, NodeIO, uuid } from '@gltf-transform/core'
+import {
+  BufferUtils,
+  FileUtils,
+  ImageUtils,
+  NodeIO,
+  uuid,
+} from '@gltf-transform/core'
 import { inspect } from '@gltf-transform/functions'
 import {
   DracoMeshCompression,
@@ -7,6 +13,18 @@ import {
 } from '@gltf-transform/extensions'
 import decoder from './draco/decoder'
 import { CDN_URL } from './urls'
+
+function formatBytes(bytes, decimals = 2) {
+  if (bytes === 0) return '0 Bytes'
+
+  const k = 1024
+  const dm = decimals < 0 ? 0 : decimals
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+
+  const i = Math.floor(Math.log(bytes) / Math.log(k))
+
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
+}
 
 function decodeDataURI(resource, resources) {
   // Rewrite Data URIs to something short and unique.
@@ -45,10 +63,22 @@ export const getPolygonCount = async (url) => {
       (acc, curr) => (acc = curr.vertices + acc),
       0
     )
+    let totalBytes = 0
+    for (let accessor of document.getRoot().listAccessors()) {
+      totalBytes += accessor.getByteLength()
+    }
+    for (let texture of document.getRoot().listTextures()) {
+      totalBytes += ImageUtils.getMemSize(
+        texture.getImage(),
+        texture.getMimeType()
+      )
+    }
+
     return {
       extensions: json.extensionsRequired,
       faces,
       vertices,
+      totalBytes: formatBytes(totalBytes),
       skinned: document.getRoot().listSkins().length > 0,
       ...report,
     }
