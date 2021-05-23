@@ -75,7 +75,7 @@ export const getPolygonCount = async (url) => {
     }
 
     return {
-      extensions: json.extensionsRequired,
+      extensions: json.extensionsUsed || json.extensionsRequired,
       faces,
       vertices,
       memoryConsumption: formatBytes(totalBytes),
