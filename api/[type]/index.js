@@ -116,6 +116,7 @@ export const getAllAssetType = async (assetType) => {
 }
 
 export default async function handler(req, res) {
+  res.setHeader('Cache-Control', 's-maxage=86400, stale-while-revalidate')
   const assetType = req.query.type
   if (assetType === 'favorites') {
     const team = await getAssetFavorites(req.query.favs)

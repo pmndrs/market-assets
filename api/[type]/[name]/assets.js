@@ -34,6 +34,7 @@ export const getInfo = async (type, slug) => {
 }
 
 export default async function handler(req, res) {
+  res.setHeader('Cache-Control', 's-maxage=86400, stale-while-revalidate')
   const assetType = req.query.type
   if (assetType !== 'creators' && assetType !== 'teams') {
     res.status(404).json({})

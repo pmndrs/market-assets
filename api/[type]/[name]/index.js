@@ -4,6 +4,7 @@ import { getTeam } from '../../../utils/endpoints/team'
 import { getAsset } from '../../../utils/endpoints/asset'
 
 export default async function handler(req, res) {
+  res.setHeader('Cache-Control', 's-maxage=86400, stale-while-revalidate')
   const assetType = req.query.type
   const name = req.query.name
 
