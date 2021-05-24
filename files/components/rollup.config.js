@@ -6,6 +6,7 @@ import glslify from 'rollup-plugin-glslify'
 import multiInput from 'rollup-plugin-multi-input'
 import { terser } from 'rollup-plugin-terser'
 import images from 'rollup-plugin-image-files'
+import copy from 'rollup-plugin-copy'
 
 const root = process.platform === 'win32' ? path.resolve('/') : '/'
 const external = (id) => !id.startsWith('.') && !id.startsWith(root)
@@ -27,6 +28,20 @@ const getBabelOptions = ({ useESModules }, targets) => ({
   ],
 })
 
+const plugins = [
+  json(),
+  images(),
+  glslify(),
+  copy({
+    targets: [
+      {
+        src: 'src/water/*.jpeg',
+        dest: 'dist/water/',
+      },
+    ],
+  }),
+]
+
 export default [
   {
     input: ['src/**/*.js', 'src/**/*.ts', 'src/**/*.tsx', '!src/index.js'],
@@ -34,9 +49,7 @@ export default [
     external,
     plugins: [
       multiInput(),
-      json(),
-      images(),
-      glslify(),
+      ...plugins,
       babel(
         getBabelOptions(
           { useESModules: true },
@@ -51,9 +64,7 @@ export default [
     output: { dir: `dist`, format: 'esm' },
     external,
     plugins: [
-      json(),
-      images(),
-      glslify(),
+      ...plugins,
       babel(
         getBabelOptions(
           { useESModules: true },
@@ -69,12 +80,11 @@ export default [
     output: { dir: `dist`, format: 'cjs' },
     external,
     plugins: [
+      ...plugins,
       multiInput({
         transformOutputPath: (output) => output.replace(/\.[^/.]+$/, '.cjs.js'),
       }),
-      json(),
-      images(),
-      glslify(),
+
       babel(getBabelOptions({ useESModules: false })),
       resolve({ extensions }),
       terser(),

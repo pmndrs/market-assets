@@ -1,1 +1,3 @@
-export { default as Grass } from './grass'
+export * from './grass'
+export * from './cloud'
+export * from './water'

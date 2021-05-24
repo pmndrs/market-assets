@@ -11,7 +11,7 @@ import './GrassMaterial'
 
 const simplex = new SimplexNoise(Math.random)
 
-export default function Grass({
+export function Grass({
   options = { bW: 0.12, bH: 1, joints: 5 },
   width = 100,
   instances = 50000,
