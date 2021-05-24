@@ -2,3 +2,5 @@
 node_modules
 .DS_Store
 .env
+files/components/node_modules
+files/components/dist

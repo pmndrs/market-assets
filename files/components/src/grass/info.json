@@ -1,0 +1,9 @@
+{
+  "name": "Grass",
+  "creator": {
+    "name": "Paul Henschel",
+    "link": "https://twitter.com/0xca0a"
+  },
+  "license": 1,
+  "category": "shader"
+}
