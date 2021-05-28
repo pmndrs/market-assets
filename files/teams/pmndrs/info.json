@@ -1,5 +1,6 @@
 {
   "name": "Poimandres",
   "link": "http://pmnd.rs/",
-  "logo": "logo.jpg"
+  "logo": "logo.jpg",
+  "donateLink": "https://opencollective.com/pmndrs"
 }
