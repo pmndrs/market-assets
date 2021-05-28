@@ -93,10 +93,14 @@ export const getAsset = async (assetType, name) => {
 
           if (typeof info.creator === 'string') {
             info.creator = await getCreator(info.creator)
+            info.creator.page = true
+            info.creator.url = JSON.parse(body).creator
           }
 
           if (typeof info.team === 'string') {
             info.team = await getTeam(info.team)
+            info.team.page = true
+            info.team.url = JSON.parse(body).team
           }
 
           if (info.maps) {
