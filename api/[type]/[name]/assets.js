@@ -3,6 +3,7 @@ import { GetObjectCommand } from '@aws-sdk/client-s3'
 import { streamToString } from '../../../utils/streamToString'
 import { s3 } from '../../../utils/s3'
 import { getAllAssetType } from '..'
+import { CDN_URL } from '../../../utils/urls'
 
 export const getInfo = async (type, slug) => {
   const data = await s3.send(
@@ -12,19 +13,24 @@ export const getInfo = async (type, slug) => {
     })
   )
 
-  const models = (await getAllAssetType('models')).filter(
+  const models = ((await getAllAssetType('models')) || []).filter(
     (model) => model[type.slice(0, -1)] === slug
   )
-  const hdris = (await getAllAssetType('hdris')).filter(
+  const hdris = ((await getAllAssetType('hdris')) || []).filter(
     (hdri) => hdri[type.slice(0, -1)] === slug
   )
-  const materials = (await getAllAssetType('materials')).filter(
+  const materials = ((await getAllAssetType('materials')) || []).filter(
     (material) => material[type.slice(0, -1)] === slug
   )
 
   const body = await streamToString(data.Body)
-  const creator = JSON.parse(body)
+  const parsedBody = JSON.parse(body)
 
+  const creator = parsedBody
+
+  if (creator.logo) {
+    creator.logo = CDN_URL(`market-assets/${type}/${slug}/${parsedBody.logo}`)
+  }
   return {
     ...creator,
     models,
