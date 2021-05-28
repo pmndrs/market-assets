@@ -1,9 +1,6 @@
 {
   "name": "Rock",
-  "creator": {
-    "name": "cc0textures",
-    "link": "https://cc0textures.com/view?id=Rock020"
-  },
+  "creator": "ambientcg",
   "license": 1,
   "category": "PBR",
   "maps": {

@@ -1,9 +1,6 @@
 {
   "name": "Wood Floor",
-  "creator": {
-    "name": "cc0textures",
-    "link": "https://cc0textures.com/view?id=WoodFloor043"
-  },
+  "creator": "ambientcg",
   "license": 1,
   "category": "PBR",
   "maps": {

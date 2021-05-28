@@ -1,9 +1,6 @@
 {
   "name": "Tiles",
-  "creator": {
-    "name": "cc0textures",
-    "link": "https://cc0textures.com/view?id=Tiles036"
-  },
+  "creator": "ambientcg",
   "license": 1,
   "category": "PBR",
   "maps": {
