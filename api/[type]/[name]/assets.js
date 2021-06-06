@@ -1,41 +1,28 @@
-import { info } from '../../../utils/filenames'
-import { GetObjectCommand } from '@aws-sdk/client-s3'
-import { streamToString } from '../../../utils/streamToString'
-import { s3 } from '../../../utils/s3'
-import { getAllAssetType } from '..'
-import { CDN_URL } from '../../../utils/urls'
+import { supabase } from '../../../utils/initSupabase'
+import { cleanSupabaseData } from '../../../utils/queries/cleanSupaBaseData'
+import { listData } from '../../../utils/queries/list'
 
 export const getInfo = async (type, slug) => {
-  const data = await s3.send(
-    new GetObjectCommand({
-      Bucket: 'market-assets',
-      Key: `market-assets/${type}/${slug}/${info}`,
-    })
-  )
+  const creatorRequest = await supabase
+    .from(type)
+    .select()
+    .eq('url', slug)
+    .limit(1)
+  const creator = creatorRequest.data[0]
+  let assets = {}
+  const promiseToWait = Object.keys(listData).map(async (t) => {
+    const assetTypeData = await supabase
+      .from(t)
+      .select(listData[t])
+      .eq(type.slice(0, -1), creator.id)
 
-  const models = ((await getAllAssetType('models')) || []).filter(
-    (model) => model[type.slice(0, -1)] === slug
-  )
-  const hdris = ((await getAllAssetType('hdris')) || []).filter(
-    (hdri) => hdri[type.slice(0, -1)] === slug
-  )
-  const materials = ((await getAllAssetType('materials')) || []).filter(
-    (material) => material[type.slice(0, -1)] === slug
-  )
+    assets[t] = cleanSupabaseData(assetTypeData.data)
+  })
 
-  const body = await streamToString(data.Body)
-  const parsedBody = JSON.parse(body)
-
-  const creator = parsedBody
-
-  if (creator.logo) {
-    creator.logo = CDN_URL(`market-assets/${type}/${slug}/${parsedBody.logo}`)
-  }
+  await Promise.all(promiseToWait)
   return {
     ...creator,
-    models,
-    hdris,
-    materials,
+    ...assets,
   }
 }
 
@@ -47,13 +34,6 @@ export default async function handler(req, res) {
     return
   }
   const name = req.query.name
-  if (assetType === 'creators') {
-    const data = await getInfo(assetType, name)
-    res.status(200).json(data)
-  }
-
-  if (assetType === 'teams') {
-    const data = await getInfo(assetType, name)
-    res.status(200).json(data)
-  }
+  const data = await getInfo(assetType, name)
+  res.status(200).json(data)
 }
