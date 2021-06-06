@@ -4,7 +4,7 @@
   "description": "",
   "keywords": [],
   "scripts": {
-    "start": "vercel dev --listen 3001",
+    "start": "NODE_OPTIONS=--max-old-space-size=4096 vercel dev --listen 3001",
     "prettier": "prettier --list-different '**/*.{js,jsx,md}'"
   },
   "author": "",
@@ -22,7 +22,9 @@
     "@gltf-transform/core": "^0.11.0",
     "@gltf-transform/extensions": "^0.11.0",
     "@gltf-transform/functions": "^0.11.0",
+    "@supabase/supabase-js": "^1.13.1",
     "aws-sdk": "^2.906.0",
+    "babel-loader": "^8.2.2",
     "dotenv": "^9.0.2",
     "draco3dgltf": "^1.4.1",
     "lodash.omit": "^4.5.0",
