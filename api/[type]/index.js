@@ -14,6 +14,7 @@ export default async function handler(req, res) {
     const { data, error } = await supabase
       .from(assetType)
       .select(listData[assetType])
+      .filter('approved', 'eq', true)
       .order('id')
     if (error) {
       console.log(error)
