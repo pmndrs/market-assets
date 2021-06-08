@@ -24,6 +24,7 @@ export default async function handler(req, res) {
           ? 'category, thumbnail, unprocessed'
           : 'category, thumbnail'
       )
+      .filter('approved', 'eq', true)
 
     const categories = data
       .filter((a) => !a.unprocessed)
