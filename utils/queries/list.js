@@ -6,6 +6,7 @@ _id,
  license,
  size,
  category,
+ approved,
  thumbnail`
 
 const models = `
