@@ -1,19 +1,16 @@
-import { model } from '../../../utils/filenames'
-import { GetObjectCommand } from '@aws-sdk/client-s3'
-import { streamToString } from '../../../utils/streamToString'
-import { s3 } from '../../../utils/s3'
+import fetch from 'node-fetch'
+import { supabase } from '../../../utils/initSupabase'
 
 const getBuffer = async (assetType, name) => {
-  const data = await s3.send(
-    new GetObjectCommand({
-      Bucket: 'market-assets',
-      Key: `market-assets/${assetType}/${name}/${model}`,
-    })
-  )
-  const body = await streamToString(data.Body)
-  const info = JSON.parse(body)
+  const { data } = await supabase
+    .from(assetType)
+    .select('file')
+    .filter('_id', 'eq', `${assetType.slice(0, -1)}/${name}`)
+    .limit(1)
 
-  return info
+  const json = await fetch(data[0].file).then((rsp) => rsp.json())
+
+  return json
 }
 
 export default async function handler(req, res) {
