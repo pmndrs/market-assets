@@ -8,6 +8,7 @@ export const cleanSupabaseData = (data) => {
       id: m._id,
       _id: m.id,
       size,
+      originalSize: m.size,
       highPoly,
       link: `https://api.market-assets/${m._id}`,
     }
